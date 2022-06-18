@@ -1,5 +1,10 @@
 // Require modules used in the logic below
-const { Builder, By, Key, until } = require( 'selenium-webdriver' );
+const {
+    Builder,
+    By,
+    Key,
+    until
+} = require( 'selenium-webdriver' );
 
 // You can use a remote Selenium Hub, but we are not doing that here
 require( 'chromedriver' );
@@ -8,23 +13,24 @@ const driver = new Builder()
     .build();
 
 // Setting variables for our testcase
-const baseUrl = 'http://floridascarwash.com'
+const baseUrl = 'https://wellsfargo.com'
 
 // function to check for login elements and do login
-var loginToLamdbatest = async function () {
+var wf_login = async function () {
 
-    let loginButton = By.xpath( '//a[@id="login_link"]' );
+    let login_link = By.xpath( '//a[@class="ps-sign-on-text"]' );
+
 
     // navigate to the login page
     await driver.get( baseUrl );
 
     // wait for login page to be loaded
-    await driver.wait( until.elementLocated( loginButton ), 30 * 1000 );
+    await driver.wait( until.elementLocated( login_link ), 30 * 1000 );
     console.log( 'Login screen loaded.' )
 }
 
 //to set jasmine default timeout
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 20 * 1000;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 60 * 1000;
 
 // Start to write the first test case
 describe( "Selenium test case for login page", function () {
@@ -32,12 +38,35 @@ describe( "Selenium test case for login page", function () {
         console.log( '<----- Starting to execute test case ----->' );
 
         //to do login
-        await loginToLamdbatest();
+        await wf_login();
+        console.log( "found login link.  clicking..." );
 
-        var welcomeMessage = By.xpath( '//*[@id="login_link"]' );
+        let login_link = By.xpath( '//a[@class="ps-sign-on-text"]' );
+        await driver.findElement( login_link ).click();
+
+        let userid = By.xpath( '//input[@id="j_username"]' );
+        await driver.wait( until.elementLocated( userid ), 30 * 1000 );
+
+        console.log( 'Userid field found.' );
+
+        var useridclickable = driver.findElement({ xpath: '//input[@id="j_username"]' });
+        await useridclickable.click();
+        await useridclickable.sendKeys( 'lxa12pf' );
+
+        var password_clickable = driver.findElement({ xpath: '//input[@id="j_password"]' });
+        await password_clickable.click();
+        await password_clickable.sendKeys( 'jun02@Th' );
+        
+        var sign_on = driver.findElement({ xpath: '//button[contains(text(), "Sign on")]' });
+        await sign_on.click();
+
+        let account_id = By.xpath( '//input[@id="acc-dcb4135f-5c78-4c4e-b1e7-67486a137cbe-balance"]' );
+        await driver.wait( until.elementLocated( account_id ), 30 * 1000 );
+
+
 
         //verify welcome message on login page
-        expect( await driver.findElement( welcomeMessage ).getText() ).toBe( 'Log in' );
+        //expect( await driver.findElement( welcomeMessage ).getText() ).toBe( 'Log in' );
 
         //to quit the web driver at end of test case execution
         await driver.quit();
