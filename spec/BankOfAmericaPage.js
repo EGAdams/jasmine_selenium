@@ -15,7 +15,9 @@ class BankOfAmericaPage {
 
     async login() {
         let login_link = By.xpath( '//select[@id="onlineIdSelect"]' );
+        console.log( "getting this.baseUrl..." );
         await this.driver.get( this.baseUrl );
+        console.log( "waiting for \"//select[@id=\"onlineIdSelect\"]\" to be elementLocated..." );
         await this.driver.wait( until.elementLocated( login_link ), 30 * 1000 );
         console.log( 'Login screen loaded.' ); }
 
