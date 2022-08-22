@@ -1,6 +1,8 @@
 // Require modules used in the logic below
 const { Builder, By, Key, until } = require( 'selenium-webdriver' );
 const BankOfAmericaPage = require( './BankOfAmericaPage' );
+const WellsFargoPage = require( './WellsFargoPage' );
+const CarWashPage = require( './CarWashPage' );
 
 // You can use a remote Selenium Hub, but we are not doing that here
 // require( 'chromedriver' );
@@ -10,7 +12,7 @@ const BankOfAmericaPage = require( './BankOfAmericaPage' );
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 60 * 1000;
 
 // Start to write the first test case
-describe( "Selenium test case for login page", function () {
+describe( "boa", function () {
     it( "verify page elements", async function () {
         console.log( '<----- Starting to execute test case ----->' );
         let boa = new BankOfAmericaPage();
@@ -42,5 +44,41 @@ describe( "Selenium test case for login page", function () {
         
         boa.driver_quit();
         console.log( '<----- Test case execution completed ----->' );
+    } );
+} );
+
+describe( "car wash test", function () {
+    it( "verify page elements", async function () {
+        console.log( '<----- Starting to execute test case ----->' );
+        let fcw = new CarWashPage();
+
+        await fcw.openSite();
+        console.log( "clicking on phone icon..." );
+        await fcw.click_phone();
+        console.log( "waiting for chatbox visible..." );
+        await fcw.wait_for_chatbox_visible();
+        
+        fcw.driver_quit();
+        console.log( '<----- Test case execution completed ----->' );
+    } );
+} );
+
+
+describe( "wells fargo", function () {
+    it( "verify page elements", async function () {
+        console.log( '<----- Starting to execute  test case ----->' );
+        let page = new WellsFargoPage();
+        console.log( "waiting for login clickable... ");
+        await page.login();
+        console.log( "clicking login... " );
+        await page.click_login();
+        console.log( "entering user id... " );
+        await page.enter_user_id();
+        console.log( "entering password... " );
+        await page.enter_password();
+        console.log( "waiting for balance..." );
+        await page.wait_for_balance();
+        page.driver_quit();
+        
     } );
 } );
