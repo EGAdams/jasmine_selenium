@@ -9,7 +9,7 @@ const CarWashPage = require( './CarWashPage' );
 // const driver = new Builder().forBrowser( 'chrome' ).build();
 
 //to set jasmine default timeout
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 60 * 1000;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 20 * 1000;
 
 // Start to write the first test case
 describe( "boa", function () {

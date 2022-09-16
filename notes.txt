@@ -1,0 +1,14 @@
+
+nice instructions here:
+https://www.lambdatest.com/blog/selenium-jasmine-javascript-testing-framework-tutorial/#SettingUp
+
+find out what the script is bitching about and get the needed chromedriver from here:
+https://chromedriver.chromium.org/downloads
+
+
+If there's no alert, but you want to know which version of Chrome you're running, 
+click the three-dot icon in the top-right corner and select Help > About Google Chrome.
+
+npm install --save chromedriver --chromedriver_filepath=.
+npm install --save selenium-webdriver
+jasmine spec\exampleSeleniumSpec.js --filter="boa" 
