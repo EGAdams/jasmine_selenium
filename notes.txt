@@ -13,5 +13,8 @@ npm install --save chromedriver --chromedriver_filepath=.
 npm install --save selenium-webdriver
 jasmine spec\exampleSeleniumSpec.js --filter="boa" 
 
+after horatio weekend with parents:
+https://sites.google.com/a/chromium.org/chromedriver/downloads/version-selection
+
 // "node-sass": "^4.11.0",
 
