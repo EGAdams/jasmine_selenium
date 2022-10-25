@@ -1,7 +1,9 @@
 //** @class BandOfAmericaPage */
-const { Builder, By, Key, until } = require( 'selenium-webdriver' );
-class BankOfAmericaPage {
-    constructor() {
+const { Builder, By, Key, until } = require( 'selenium-webdriver'  );
+const { MonitoredObject }         = require( 'monitored-object-ts' );
+class BankOfAmericaPage extends MonitoredObject {
+    constructor( new_id_arg, data_source_location_arg ) {
+        super({ new_id: new_id_arg, data_source_location: data_source_location_arg });
         // Setting variables for our testcase
         this.baseUrl = 'https://www.bankofamerica.com'              // base url
         this.xpath_first_login_link = '//a[@id="LOGIN_MEDIUM"]';    // login link

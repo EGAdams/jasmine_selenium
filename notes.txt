@@ -12,3 +12,6 @@ click the three-dot icon in the top-right corner and select Help > About Google 
 npm install --save chromedriver --chromedriver_filepath=.
 npm install --save selenium-webdriver
 jasmine spec\exampleSeleniumSpec.js --filter="boa" 
+
+// "node-sass": "^4.11.0",
+
