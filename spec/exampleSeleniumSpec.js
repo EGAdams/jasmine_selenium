@@ -1,5 +1,4 @@
 // Require modules used in the logic below
-const { Builder, By, Key, until } = require( 'selenium-webdriver' );
 const BankOfAmericaPage = require( './BankOfAmericaPage' );
 const WellsFargoPage = require( './WellsFargoPage' );
 const CarWashPage = require( './CarWashPage' );
