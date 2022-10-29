@@ -8,7 +8,7 @@ const CarWashPage = require( './CarWashPage' );
 // const driver = new Builder().forBrowser( 'chrome' ).build();
 
 //to set jasmine default timeout
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 20 * 1000;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 60 * 1000;
 
 // Start to write the first test case
 describe( "boa", function () {
@@ -46,38 +46,38 @@ describe( "boa", function () {
     } );
 } );
 
-describe( "car wash test", function () {
-    it( "verify page elements", async function () {
-        boa.logUpdate( '<----- Starting to execute test case ----->' );
-        let fcw = new CarWashPage();
+// describe( "car wash test", function () {
+//     it( "verify page elements", async function () {
+//         boa.logUpdate( '<----- Starting to execute test case ----->' );
+//         let fcw = new CarWashPage();
 
-        await fcw.openSite();
-        boa.logUpdate( "clicking on phone icon..." );
-        await fcw.click_phone();
-        boa.logUpdate( "waiting for chatbox visible..." );
-        await fcw.wait_for_chatbox_visible();
+//         await fcw.openSite();
+//         boa.logUpdate( "clicking on phone icon..." );
+//         await fcw.click_phone();
+//         boa.logUpdate( "waiting for chatbox visible..." );
+//         await fcw.wait_for_chatbox_visible();
         
-        fcw.driver_quit();
-        boa.logUpdate( '<----- Test case execution completed ----->' );
-    } );
-} );
+//         fcw.driver_quit();
+//         boa.logUpdate( '<----- Test case execution completed ----->' );
+//     } );
+// } );
 
 
-describe( "wells fargo", function () {
-    it( "verify page elements", async function () {
-        boa.logUpdate( '<----- Starting to execute  test case ----->' );
-        let page = new WellsFargoPage();
-        boa.logUpdate( "waiting for login clickable... ");
-        await page.login();
-        boa.logUpdate( "clicking login... " );
-        await page.click_login();
-        boa.logUpdate( "entering user id... " );
-        await page.enter_user_id();
-        boa.logUpdate( "entering password... " );
-        await page.enter_password();
-        boa.logUpdate( "waiting for balance..." );
-        await page.wait_for_balance();
-        page.driver_quit();
+// describe( "wells fargo", function () {
+//     it( "verify page elements", async function () {
+//         boa.logUpdate( '<----- Starting to execute  test case ----->' );
+//         let page = new WellsFargoPage();
+//         boa.logUpdate( "waiting for login clickable... ");
+//         await page.login();
+//         boa.logUpdate( "clicking login... " );
+//         await page.click_login();
+//         boa.logUpdate( "entering user id... " );
+//         await page.enter_user_id();
+//         boa.logUpdate( "entering password... " );
+//         await page.enter_password();
+//         boa.logUpdate( "waiting for balance..." );
+//         await page.wait_for_balance();
+//         page.driver_quit();
         
-    } );
-} );
+//     } );
+// } );

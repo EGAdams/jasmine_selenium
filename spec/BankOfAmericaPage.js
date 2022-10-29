@@ -1,13 +1,23 @@
 //** @class BandOfAmericaPage */
 const { Builder, By, Key, until } = require( 'selenium-webdriver'  );
 const { MonitoredObject }         = require( 'monitored-object-ts' );
+const { Options }                 = require( 'selenium-webdriver/chrome' );
 class BankOfAmericaPage extends MonitoredObject {
     constructor( new_id_arg, data_source_location_arg ) {
         super({ new_id: new_id_arg, data_source_location: data_source_location_arg });
         // Setting variables for our testcase
         this.baseUrl = 'https://www.bankofamerica.com'              // base url
-        require( 'chromedriver' );                                  // require and build driver...
-        this.driver = new Builder().forBrowser( 'chrome' ).build(); }
+        
+        const options = new Options();
+        options.addArguments('--headless');
+        options.addArguments('--no-sandbox');
+        options.addArguments('--disable-dev-shm-usage');
+        options.addArguments("--disable-gpu");
+        options.addArguments( "--disable-setuid-sandbox" );
+        
+        options.setChromeBinaryPath( " C:\\Users\\EG" );
+        // require( 'chromedriver' );                                  // require and build driver...
+        this.driver = new Builder().forBrowser( 'chrome' )/*.setChromeOptions( options )*/.build(); }
 
     async login() {
         let login_link = By.xpath( '//select[@id="onlineIdSelect"]' );
