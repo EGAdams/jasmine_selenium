@@ -21,11 +21,11 @@ class BankOfAmericaPage extends MonitoredObject {
 
     async login() {
         let login_link = By.xpath( '//select[@id="onlineIdSelect"]' );
-        console.log( "getting this.baseUrl..." );
+        this.logUpdate( "getting this.baseUrl..." );
         await this.driver.get( this.baseUrl );
-        console.log( "waiting for \"//select[@id=\"onlineIdSelect\"]\" to be elementLocated..." );
+        this.logUpdate( "waiting for select[@id=onlineIdSelect] to be elementLocated..." );
         await this.driver.wait( until.elementLocated( login_link ), 30 * 1000 );
-        console.log( 'Login screen loaded.' ); }
+        this.logUpdate( 'Login screen loaded.' ); }
 
     
     async click_login() {
@@ -33,19 +33,21 @@ class BankOfAmericaPage extends MonitoredObject {
         await this.driver.findElement( login_link ).click(); }
 
     async wait_for_user_id() {
-        let xpath_user_id = '//input[@id="onlineId1"]';
-        console.log( "waiting for user id to be clickable inside boa object..." );
+        this.logUpdate( "waiting setting target to id onlineId1..." );
+        let xpath_user_id = '//input[@id="onlineId1"]'; // oid ??
+        this.logUpdate( "waiting for user id to be clickable inside boa object..." );
         let userid = By.xpath( xpath_user_id );
+        this.logUpdate( "awaiting driver wait..." );
         await this.driver.wait( until.elementLocated( userid ), 30 * 1000 ); 
-        console.log( "user id found in boa object..." ); }
+        this.logUpdate( "user id found in boa object..." ); }
 
     async enter_user_id() {
         let xpath_user_id = '//input[@id="onlineId1"]';
-        console.log( "finding user id with xpath: " + xpath_user_id + " ..." );
+        this.logUpdate( "finding user id with xpath: id = onlineId1..." );
         let useridclickable = this.driver.findElement({ xpath: xpath_user_id });
-        console.log ("clicking user id: " + useridclickable + " ..." );
+        this.logUpdate ("clicking user id..." );
         await useridclickable.click();
-        console.log ("sending keys bom93778108..." );
+        this.logUpdate ("sending keys bom93778108..." );
         await useridclickable.sendKeys( 'bom93778108' ); }
 
     async enter_password() {
@@ -54,18 +56,19 @@ class BankOfAmericaPage extends MonitoredObject {
         await password_clickable.sendKeys( 'dec02@Th' ); }
 
     async click_sign_in() {
-        console.log( "finding sign in button..." );
+        this.logUpdate( "finding sign in button..." );
         let sign_on = this.driver.findElement({ xpath: '//button[@id="signIn"]' });
-        console.log( "clicking sign_on button..." ); 
+        this.logUpdate( "clicking sign_on button..." ); 
         await sign_on.click(); }
     
     async wait_for_balance() {
-        let balance_span = By.xpath( '//div[@class="AccountBalance"]' );
-        console.log( "waiting for balance to be clickable..." );
+        let balance_span = By.xpath( '//div[@class="balanceValue"]' );
+        this.logUpdate( "waiting for balance to be clickable..." );
         await this.driver.wait( until.elementLocated( balance_span ), 30 * 1000 ); }
 
     async get_balance() {
-        return this.driver.findElement({ xpath: '//div[@class="AccountBalance"]' }).getText(); }
+        this.logUpdate( "finding element with class AccountBalance... " );
+        return this.driver.findElement({ xpath: '//div[@class="balanceValue"]' }).getText(); }
 
     async driver_quit() { await this.driver.quit(); }    
 }
