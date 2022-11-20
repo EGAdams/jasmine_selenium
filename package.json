@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "chromedriver": "^105.0.0",
+    "chromedriver": "^106.0.1",
     "clean-webpack-plugin": "^2.0.0",
     "monitored-object-ts": "^1.0.10",
     "selenium-webdriver": "^4.4.0"
