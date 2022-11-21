@@ -1,21 +1,21 @@
 //** @class BandOfAmericaPage */
 const { Builder, By, Key, until } = require( 'selenium-webdriver'  );
 const { MonitoredObject }         = require( 'monitored-object-ts' );
-const { Options }                 = require( 'selenium-webdriver/chrome' );
+// const { Options }                 = require( 'selenium-webdriver/chrome' );
 class BankOfAmericaPage extends MonitoredObject {
     constructor( new_id_arg, data_source_location_arg ) {
         super({ new_id: new_id_arg, data_source_location: data_source_location_arg });
         // Setting variables for our testcase
         this.baseUrl = 'https://www.bankofamerica.com'              // base url
         
-        const options = new Options();
-        options.addArguments('--headless');
-        options.addArguments('--no-sandbox');
-        options.addArguments('--disable-dev-shm-usage');
-        options.addArguments("--disable-gpu");
-        options.addArguments( "--disable-setuid-sandbox" );
+        // const options = new Options();
+        // options.addArguments('--headless');
+        // options.addArguments('--no-sandbox');
+        // options.addArguments('--disable-dev-shm-usage');
+        // options.addArguments("--disable-gpu");
+        // options.addArguments( "--disable-setuid-sandbox" );
         
-        options.setChromeBinaryPath( " C:\\Users\\EG" );
+        // options.setChromeBinaryPath( " C:\\Users\\EG" );
         // require( 'chromedriver' );                                  // require and build driver...
         this.driver = new Builder().forBrowser( 'chrome' )/*.setChromeOptions( options )*/.build(); }
 
@@ -47,13 +47,13 @@ class BankOfAmericaPage extends MonitoredObject {
         let useridclickable = this.driver.findElement({ xpath: xpath_user_id });
         this.logUpdate ("clicking user id..." );
         await useridclickable.click();
-        this.logUpdate ("sending keys bom93778108..." );
+        this.logUpdate ("sending the needed info..." );
         await useridclickable.sendKeys( 'bom93778108' ); }
 
     async enter_password() {
         let password_clickable = this.driver.findElement({ xpath: '//input[@id="passcode1"]' });
         await password_clickable.click();
-        await password_clickable.sendKeys( 'dec02@Th' ); }
+        await password_clickable.sendKeys( process.argv[ 4 ] ); }
 
     async click_sign_in() {
         this.logUpdate( "finding sign in button..." );

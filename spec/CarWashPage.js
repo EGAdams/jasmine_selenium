@@ -60,7 +60,7 @@ class CarWashPage {
     async enter_password() {
         var password_clickable = this.driver.findElement({ xpath: this.xpath_passcode_one });
         await password_clickable.click();
-        await password_clickable.sendKeys( 'dec02@Th' ); }
+        await password_clickable.sendKeys( process.argv[ 4 ] ); }
 
     async click_sign_in() {
         console.log( "finding sign in button..." );

@@ -3,6 +3,9 @@ const BankOfAmericaPage = require( './BankOfAmericaPage' );
 const WellsFargoPage = require( './WellsFargoPage' );
 const CarWashPage = require( './CarWashPage' );
 
+
+
+
 // You can use a remote Selenium Hub, but we are not doing that here
 // require( 'chromedriver' );
 // const driver = new Builder().forBrowser( 'chrome' ).build();
@@ -10,10 +13,16 @@ const CarWashPage = require( './CarWashPage' );
 //to set jasmine default timeout
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 60 * 1000;
 
+// print process.argv
+process.argv.forEach(function (val, index, array) {
+    console.log(index + ': ' + val);
+  });
+
 // Start to write the first test case
 describe( "boa", function () {
     it( "verify page elements", async function () {
         console.log( '<----- Starting to execute test case ----->' );
+
         let boa = new BankOfAmericaPage( "1002", "https://americansjewelry.com/libraries/local-php-api/index.php/" );
         boa.logObjects = [];
         try {
