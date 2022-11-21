@@ -48,10 +48,11 @@ describe( "boa", function () {
             await boa.wait_for_balance();
 
             boa.logUpdate( 'Balance found. getting balance text...' );
-            boa.logUpdate( await boa.get_balance());
+            let bal = await boa.get_balance();
+            boa.logUpdate( bal );
             
             boa.driver_quit();
-            boa.logUpdate( '<----- Test case execution completed ----->' );
+            console.log( '<----- Test case execution completed ----->' );
         } catch( e ) {
             boa.logUpdate( `*** ERROR: ${ e.message } ***` );
         }

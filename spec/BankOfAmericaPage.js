@@ -64,11 +64,14 @@ class BankOfAmericaPage extends MonitoredObject {
     async wait_for_balance() {
         let balance_span = By.xpath( '//div[@class="balanceValue"]' );
         this.logUpdate( "waiting for balance to be clickable..." );
+        console.log( "looking for: " + balance_span + "..." );
         await this.driver.wait( until.elementLocated( balance_span ), 30 * 1000 ); }
 
     async get_balance() {
         this.logUpdate( "finding element with class AccountBalance... " );
-        return this.driver.findElement({ xpath: '//div[@class="balanceValue"]' }).getText(); }
+        let successful_info = this.driver.findElement({ xpath: '//div[@class="balanceValue"]' }).getText(); 
+        console.log( "successful_info: [" + successful_info + "]" );
+        return successful_info; }
 
     async driver_quit() { await this.driver.quit(); }    
 }
