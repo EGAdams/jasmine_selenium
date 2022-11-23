@@ -60,20 +60,35 @@ class BankOfAmericaPage extends MonitoredObject {
         let sign_on = this.driver.findElement({ xpath: '//button[@id="signIn"]' });
         this.logUpdate( "clicking sign_on button..." ); 
         await sign_on.click(); }
+
+    async logOut( balance ) {
+        this.logUpdate( "got balance of: " + balance + "  logging out of boa..." ); 
+        let log_out = this.driver.findElement({ xpath: '//a[@class="olb-sign-out"]' });
+        await log_out.click(); 
+    }
     
     async wait_for_balance() {
-        let balance_span = By.xpath( '//div[@class="balanceValue"]' );
+        // let balance_span = By.xpath( '//div[@class="AccountBalance"]' );
+        // let balance_span = this.driver.findElement({ xpath: '//div[@class="AccountBalance"]' });
+        let balance_span = By.xpath( '//div[@class="AccountBalance"]' );
         this.logUpdate( "waiting for balance to be clickable..." );
-        console.log( "looking for: " + balance_span + "..." );
+        console.log( "looking for class = balanceValue..." );
         await this.driver.wait( until.elementLocated( balance_span ), 30 * 1000 ); }
 
     async get_balance() {
+        console.log( "finding element with class AccountBalance... " );
         this.logUpdate( "finding element with class AccountBalance... " );
-        let successful_info = this.driver.findElement({ xpath: '//div[@class="balanceValue"]' }).getText(); 
+        // let successful_info = this.driver.findElement({ xpath: '//div[@class="AccountBalance"]' }).getText(); 
+        let theScrapedAccountBalance = By.xpath( '//div[@class="AccountBalance"]' );
+        await this.driver.wait( until.elementLocated( theScrapedAccountBalance ), 30 * 1000 );
+        console.log( "found element.  calling getText() on that returned object..." );
+        let successful_info = this.driver.findElement({ xpath: '//div[@class="AccountBalance"]' }).getText();
         console.log( "successful_info: [" + successful_info + "]" );
         return successful_info; }
 
-    async driver_quit() { await this.driver.quit(); }    
+    async driver_quit() { 
+        console.log( "awaiting driver quit... " );
+        await this.driver.quit(); }    
 }
 
 module.exports = BankOfAmericaPage;

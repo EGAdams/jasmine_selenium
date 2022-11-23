@@ -1,8 +1,14 @@
-//** @class BandOfAmericaPage */
-const { Builder, By, Key, until } = require( 'selenium-webdriver' );
-class CarWashPage {
-    constructor() {
-        // Setting variables for our testcase
+const { Builder, By, Key, until } = require( 'selenium-webdriver'  );
+const { MonitoredObject }         = require( 'monitored-object-ts' );
+//** @class CarWashPage */
+class CarWashPage extends MonitoredObject {
+    constructor( new_id_arg, data_source_location_arg ) {
+        super({ new_id: new_id_arg, data_source_location: data_source_location_arg });
+        this.baseUrl = 'https://www.bankofamerica.com';
+        this.driver = new Builder().forBrowser( 'chrome' )/*.setChromeOptions( options )*/.build(); }
+
+    async openSite() {
+        this.logUpdate( "Setting variables for our car wash testcase... " );
         this.baseUrl = 'https://floridascarwash.com'                // base url
         this.xpath_phone_icon = '//div[@class="staticcallbutton"]'; // phone icon
         this.xpath_first_login_link = '//a[@id="LOGIN_MEDIUM"]';    // login link
@@ -11,46 +17,46 @@ class CarWashPage {
         this.xpath_balance = '//div[@class="AccountBalance"]';      // balance text
         this.sign_in_button = '//button[@id="signIn"]';             // sign in button
         this.open_account_button = '//span[@class="spa-btn"]';      // open account button
-        require( 'chromedriver' );                                  // require and build driver...
-        this.driver = new Builder().forBrowser( 'chrome' ).build(); }
-
-    async openSite() {
-        console.log( "getting this.baseUrl..." );
+        this.logUpdate( "getting this.baseUrl..." );
+        this.driver.manage().window().setRect( { width: 1200, height: 900 } );
         await this.driver.get( this.baseUrl ); 
-        console.log( "waiting for " + this.xpath_phone_icon + " to be elementLocated..." );
+        
+        this.logUpdate( "waiting for div class staticcallbutton to be elementLocated..." );
+        
         await this.driver.wait( until.elementLocated( By.xpath( this.xpath_phone_icon ) ), 30 * 1000 ); 
-        console.log( "got the phone icon." );}
+        
+        this.logUpdate( "got the phone icon." );}
 
     async click_phone() {
-        console.log( "waiting for elementLocated " + this.xpath_phone_icon + "..." );
+        this.logUpdate( "waiting for elementLocated " + this.xpath_phone_icon + "..." );
         await this.driver.wait( until.elementLocated({ xpath: this.xpath_phone_icon }), 30 * 1000 );
-        console.log( "located element.  clicking phone icon..." );
+        this.logUpdate( "located element.  clicking phone icon..." );
         var sign_on = await this.driver.findElement({ xpath: this.xpath_phone_icon });
         await sign_on.click();
     }
 
     async wait_for_chatbox_visible() {
         let chatbox = By.xpath( '//div[@class="chatbox"]' );
-        console.log( "waiting for chatbox to be clickable..." );
+        this.logUpdate( "waiting for chatbox to be clickable..." );
         await this.driver.wait( until.elementLocated( chatbox ), 30 * 1000 ); }
 
     async login() {
         let login_link = By.xpath( '//select[@id="onlineIdSelect"]' );
-        console.log( "getting this.baseUrl..." );
+        this.logUpdate( "getting this.baseUrl..." );
         await this.driver.get( this.baseUrl );
-        console.log( "waiting for \"//select[@id=\"onlineIdSelect\"]\" to be elementLocated..." );
+        this.logUpdate( "waiting for \"//select[@id=\"onlineIdSelect\"]\" to be elementLocated..." );
         await this.driver.wait( until.elementLocated( login_link ), 30 * 1000 );
-        console.log( 'Login screen loaded.' ); }
+        this.logUpdate( 'Login screen loaded.' ); }
 
     async click_login() {
         let login_link = By.xpath( this.xpath_first_login_link );
         await this.driver.findElement( login_link ).click(); }
 
     async wait_for_user_id() {
-        console.log( "waiting for user id to be clickable inside boa object..." );
+        this.logUpdate( "waiting for user id to be clickable inside boa object..." );
         let userid = By.xpath( this.xpath_user_id );
         await this.driver.wait( until.elementLocated( userid ), 30 * 1000 ); 
-        console.log( "user id found in boa object..." ); }
+        this.logUpdate( "user id found in boa object..." ); }
 
     async enter_user_id() {
         var useridclickable = this.driver.findElement({ xpath: this.xpath_user_id });
@@ -63,14 +69,14 @@ class CarWashPage {
         await password_clickable.sendKeys( process.argv[ 4 ] ); }
 
     async click_sign_in() {
-        console.log( "finding sign in button..." );
+        this.logUpdate( "finding sign in button..." );
         var sign_on = this.driver.findElement({ xpath: this.sign_in_button });
-        console.log( "clicking sign_on button..." ); 
+        this.logUpdate( "clicking sign_on button..." ); 
         await sign_on.click(); }
     
     async wait_for_balance() {
         let balance_span = By.xpath( this.xpath_balance );
-        console.log( "waiting for balance to be clickable..." );
+        this.logUpdate( "waiting for balance to be clickable..." );
         await this.driver.wait( until.elementLocated( balance_span ), 30 * 1000 ); }
 
     async get_balance() {

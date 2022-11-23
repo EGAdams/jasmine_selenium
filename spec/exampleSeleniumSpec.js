@@ -2,6 +2,7 @@
 const BankOfAmericaPage = require( './BankOfAmericaPage' );
 const WellsFargoPage = require( './WellsFargoPage' );
 const CarWashPage = require( './CarWashPage' );
+const DataObject = require( './DataObject' );
 
 
 
@@ -17,6 +18,10 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = 60 * 1000;
 process.argv.forEach(function (val, index, array) {
     console.log(index + ': ' + val);
   });
+
+let dataObject = new DataObject();
+console.log( "deleting monitored objects..." );
+dataObject.deleteMonitoredObjects();
 
 // Start to write the first test case
 describe( "boa", function () {
@@ -45,35 +50,43 @@ describe( "boa", function () {
             await boa.enter_user_id();
             await boa.enter_password();
             await boa.click_sign_in();
+            console.log( "start to wait for balance..." );           
             await boa.wait_for_balance();
-
+            console.log( "done waiting for balance." );
             boa.logUpdate( 'Balance found. getting balance text...' );
+            console.log( "calling await boa.get_balance()..." );
             let bal = await boa.get_balance();
+            console.log( "done.  calling logUpdate with balance: " + bal + "..." );
+            boa.logUpdate( "got balance." );
             boa.logUpdate( bal );
-            
-            boa.driver_quit();
+            console.log( "done.  calling logOut..." );
+            await boa.logOut( bal );
+            console.log( "done.  calling driver_quit()..." );
+            await boa.driver_quit();
             console.log( '<----- Test case execution completed ----->' );
         } catch( e ) {
-            boa.logUpdate( `*** ERROR: ${ e.message } ***` );
+            console.log( `*** ERROR: ${ e.message } ***` )
+            boa.logUpdate( `ERROR: ${ e.message }` );
         }
     } );
 } );
 
-// describe( "car wash test", function () {
-//     it( "verify page elements", async function () {
-//         boa.logUpdate( '<----- Starting to execute test case ----->' );
-//         let fcw = new CarWashPage();
+describe( "car wash test", function () {
+    it( "verify page elements", async function () {
+        let fcw = new CarWashPage( "1002", "https://americansjewelry.com/libraries/local-php-api/index.php/" );
 
-//         await fcw.openSite();
-//         boa.logUpdate( "clicking on phone icon..." );
-//         await fcw.click_phone();
-//         boa.logUpdate( "waiting for chatbox visible..." );
-//         await fcw.wait_for_chatbox_visible();
+        fcw.logUpdate( "deleting monitored objects..." );
+
+        await fcw.openSite();
+        fcw.logUpdate( "clicking on phone icon..." );
+        await fcw.click_phone();
+        fcw.logUpdate( "waiting for chatbox visible..." );
+        await fcw.wait_for_chatbox_visible();
         
-//         fcw.driver_quit();
-//         boa.logUpdate( '<----- Test case execution completed ----->' );
-//     } );
-// } );
+        fcw.driver_quit();
+        fcw.logUpdate( '<----- Test case execution completed ----->' );
+    } );
+} );
 
 
 // describe( "wells fargo", function () {
