@@ -19,9 +19,9 @@ process.argv.forEach(function (val, index, array) {
     console.log(index + ': ' + val);
   });
 
-let dataObject = new DataObject();
+let dataObject = new DataObject( "1002", "https://americansjewelry.com/libraries/local-php-api/index.php/" );
 console.log( "deleting monitored objects..." );
-dataObject.deleteMonitoredObjects();
+//dataObject.deleteMonitoredObjects();
 
 // Start to write the first test case
 describe( "boa", function () {
@@ -73,6 +73,7 @@ describe( "boa", function () {
 
 describe( "car wash test", function () {
     it( "verify page elements", async function () {
+        await dataObject.deleteMonitoredObjects();
         let fcw = new CarWashPage( "1002", "https://americansjewelry.com/libraries/local-php-api/index.php/" );
 
         fcw.logUpdate( "deleting monitored objects..." );
