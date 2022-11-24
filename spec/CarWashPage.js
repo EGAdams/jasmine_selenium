@@ -8,30 +8,22 @@ class CarWashPage extends MonitoredObject {
         this.driver = new Builder().forBrowser( 'chrome' )/*.setChromeOptions( options )*/.build(); }
 
     async openSite() {
-        this.logUpdate( "Setting variables for our car wash testcase... " );
-        this.baseUrl = 'https://floridascarwash.com'                // base url
-        this.xpath_phone_icon = '//div[@class="staticcallbutton"]'; // phone icon
-        this.xpath_first_login_link = '//a[@id="LOGIN_MEDIUM"]';    // login link
-        this.xpath_user_id = '//input[@id="onlineId1"]';            // user id input
-        this.xpath_passcode_one = '//input[@id="passcode1"]';       // password input
-        this.xpath_balance = '//div[@class="AccountBalance"]';      // balance text
-        this.sign_in_button = '//button[@id="signIn"]';             // sign in button
-        this.open_account_button = '//span[@class="spa-btn"]';      // open account button
+        this.baseUrl = 'https://floridascarwash.com';
         this.logUpdate( "getting this.baseUrl..." );
         this.driver.manage().window().setRect( { width: 1200, height: 900 } );
         await this.driver.get( this.baseUrl ); 
         
         this.logUpdate( "waiting for div class staticcallbutton to be elementLocated..." );
         
-        await this.driver.wait( until.elementLocated( By.xpath( this.xpath_phone_icon ) ), 30 * 1000 ); 
+        await this.driver.wait( until.elementLocated( By.xpath( '//div[@class="staticcallbutton"]' ) ), 30 * 1000 ); 
         
         this.logUpdate( "got the phone icon." );}
 
     async click_phone() {
-        this.logUpdate( "waiting for elementLocated " + this.xpath_phone_icon + "..." );
-        await this.driver.wait( until.elementLocated({ xpath: this.xpath_phone_icon }), 30 * 1000 );
+        this.logUpdate( "waiting for elementLocated " + '//div[@class="staticcallbutton"]' + "..." );
+        await this.driver.wait( until.elementLocated({ xpath: '//div[@class="staticcallbutton"]' }), 30 * 1000 );
         this.logUpdate( "located element.  clicking phone icon..." );
-        var sign_on = await this.driver.findElement({ xpath: this.xpath_phone_icon });
+        var sign_on = await this.driver.findElement({ xpath: '//div[@class="staticcallbutton"]' });
         await sign_on.click();
     }
 
@@ -49,38 +41,38 @@ class CarWashPage extends MonitoredObject {
         this.logUpdate( 'Login screen loaded.' ); }
 
     async click_login() {
-        let login_link = By.xpath( this.xpath_first_login_link );
+        let login_link = By.xpath( '//a[@id="LOGIN_MEDIUM"]' );
         await this.driver.findElement( login_link ).click(); }
 
     async wait_for_user_id() {
         this.logUpdate( "waiting for user id to be clickable inside boa object..." );
-        let userid = By.xpath( this.xpath_user_id );
+        let userid = By.xpath( '//input[@id="onlineId1"]' );
         await this.driver.wait( until.elementLocated( userid ), 30 * 1000 ); 
         this.logUpdate( "user id found in boa object..." ); }
 
     async enter_user_id() {
-        var useridclickable = this.driver.findElement({ xpath: this.xpath_user_id });
+        var useridclickable = this.driver.findElement({ xpath: '//input[@id="onlineId1"]' });
         await useridclickable.click();
         await useridclickable.sendKeys( 'bom93778108' ); }
 
     async enter_password() {
-        var password_clickable = this.driver.findElement({ xpath: this.xpath_passcode_one });
+        var password_clickable = this.driver.findElement({ xpath: '//input[@id="passcode1"]' });
         await password_clickable.click();
         await password_clickable.sendKeys( process.argv[ 4 ] ); }
 
     async click_sign_in() {
         this.logUpdate( "finding sign in button..." );
-        var sign_on = this.driver.findElement({ xpath: this.sign_in_button });
+        var sign_on = this.driver.findElement({ xpath: '//button[@id="signIn"]' });
         this.logUpdate( "clicking sign_on button..." ); 
         await sign_on.click(); }
     
     async wait_for_balance() {
-        let balance_span = By.xpath( this.xpath_balance );
+        let balance_span = By.xpath( '//div[@class="AccountBalance"]' );
         this.logUpdate( "waiting for balance to be clickable..." );
         await this.driver.wait( until.elementLocated( balance_span ), 30 * 1000 ); }
 
     async get_balance() {
-        return this.driver.findElement({ xpath: this.xpath_balance }).getText(); }
+        return this.driver.findElement({ xpath: '//div[@class="AccountBalance"]' }).getText(); }
 
     async driver_quit() { await this.driver.quit(); }    
 }

@@ -4,4 +4,15 @@ class LogCleaner extends MonitoredObject {
         super( config );
         console.log( "constructing LogCleaner..." )
     }
+
+    // select the object string
+
+    // convert it to a json object
+
+    // clear the log object array
+
+    // restringify
+
+    // update the database
+
 }
