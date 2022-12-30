@@ -1,8 +1,9 @@
 // Require modules used in the logic below
 const BankOfAmericaPage = require( './BankOfAmericaPage' );
-const WellsFargoPage = require( './WellsFargoPage' );
-const CarWashPage = require( './CarWashPage' );
-const DataObject = require( './DataObject' );
+const WellsFargoPage = require(    './WellsFargoPage'    );
+const CarWashPage = require(       './CarWashPage'       );
+const DataObject = require(        './DataObject'        );
+const ROLPage    = require(        './ROLPage'           );
 
 
 
@@ -21,6 +22,22 @@ process.argv.forEach(function (val, index, array) {
 
 let dataObject = new DataObject( "1002", "https://americansjewelry.com/libraries/local-php-api/index.php/" );
 
+// describe( "rol test", function () {
+//     it( "verify page elements", async function () {
+//         console.log( "*** deleting monitored objects... ***" );
+//         await dataObject.deleteMonitoredObjects().then( console.log( "finished deleting monitored objects."));
+//         let rol = new ROLPage( "1002", "https://americansjewelry.com/libraries/local-php-api/index.php/" );
+
+//         await rol.openSite();
+//         // fcw.logUpdate( "clicking on phone icon..." );
+//         // await fcw.click_phone();
+//         // fcw.logUpdate( "waiting for chatbox visible..." );
+//         // await fcw.wait_for_chatbox_visible();
+        
+//         rol.driver_quit();
+//         rol.logUpdate( '<----- Test case execution completed ----->' );
+//     } );
+// } );
 
 // Start to write the first test case
 describe( "boa", function () {
@@ -39,53 +56,53 @@ describe( "boa", function () {
             // boa.logUpdate( "open account button found." );
 
             
-            boa.logUpdate( "found login link.  clicking..." );
-            await boa.click_login();
+            // boa.logUpdate( "found login link.  clicking..." );
+            // await boa.click_login();
                     
-            boa.logUpdate( 'Login field found and clicked on. locating user id input...' );
-            await boa.wait_for_user_id();
+            // boa.logUpdate( 'Login field found and clicked on. locating user id input...' );
+            // await boa.wait_for_user_id();
             
-            boa.logUpdate( 'User id input found.  entering user id and password...' );
-            await boa.enter_user_id();
-            await boa.enter_password();
-            await boa.click_sign_in();
-            console.log( "start to wait for balance..." );           
-            await boa.wait_for_balance();
-            console.log( "done waiting for balance." );
-            boa.logUpdate( 'Balance found. getting balance text...' );
-            console.log( "calling await boa.get_balance()..." );
-            let bal = await boa.get_balance();
-            console.log( "done.  calling logUpdate with balance: " + bal + "..." );
-            boa.logUpdate( "got balance." );
-            boa.logUpdate( bal );
-            console.log( "done.  calling logOut..." );
-            await boa.logOut( bal );
-            console.log( "done.  calling driver_quit()..." );
-            await boa.driver_quit();
-            console.log( '<----- Test case execution completed ----->' );
+            // boa.logUpdate( 'User id input found.  entering user id and password...' );
+            // await boa.enter_user_id();
+            // await boa.enter_password();
+            // await boa.click_sign_in();
+            // console.log( "start to wait for balance..." );           
+            // await boa.wait_for_balance();
+            // console.log( "done waiting for balance." );
+            // boa.logUpdate( 'Balance found. getting balance text...' );
+            // console.log( "calling await boa.get_balance()..." );
+            // let bal = await boa.get_balance();
+            // console.log( "done.  calling logUpdate with balance: " + bal + "..." );
+            // boa.logUpdate( "got balance." );
+            // boa.logUpdate( bal );
+            // console.log( "done.  calling logOut..." );
+            // await boa.logOut( bal );
+            // console.log( "done.  calling driver_quit()..." );
+            // await boa.driver_quit();
+            // console.log( '<----- Test case execution completed ----->' );
         } catch( e ) {
             console.log( `*** ERROR: ${ e.message } ***` )
-            boa.logUpdate( `ERROR: ${ e.message }` );
+            boa.logUpdate( `ERROR ${ e.message }` );
         }
     } );
 } );
 
-describe( "car wash test", function () {
-    it( "verify page elements", async function () {
-        console.log( "deleting monitored objects..." );
-        await dataObject.deleteMonitoredObjects().then( console.log( "finished deleting monitored objects."));
-        let fcw = new CarWashPage( "1002", "https://americansjewelry.com/libraries/local-php-api/index.php/" );
+// describe( "car wash test", function () {
+//     it( "verify page elements", async function () {
+//         console.log( "deleting monitored objects..." );
+//         await dataObject.deleteMonitoredObjects().then( console.log( "finished deleting monitored objects."));
+//         let fcw = new CarWashPage( "1002", "https://americansjewelry.com/libraries/local-php-api/index.php/" );
 
-        await fcw.openSite();
-        fcw.logUpdate( "clicking on phone icon..." );
-        await fcw.click_phone();
-        fcw.logUpdate( "waiting for chatbox visible..." );
-        await fcw.wait_for_chatbox_visible();
+//         await fcw.openSite();
+//         fcw.logUpdate( "clicking on phone icon..." );
+//         await fcw.click_phone();
+//         fcw.logUpdate( "waiting for chatbox visible..." );
+//         await fcw.wait_for_chatbox_visible();
         
-        fcw.driver_quit();
-        fcw.logUpdate( '<----- Test case execution completed ----->' );
-    } );
-} );
+//         fcw.driver_quit();
+//         fcw.logUpdate( '<----- Test case execution completed ----->' );
+//     } );
+// } );
 
 
 // describe( "wells fargo", function () {
