@@ -15,12 +15,24 @@
         },
         {
             "type": "node",
+            "runtimeVersion": "18.12.1",
             "request": "launch",
             "name": "Launch test.js",
             "skipFiles": [
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}/test.js"
+        },
+        {
+            "type": "node",
+            "runtimeVersion": "18.12.1",
+            "request": "launch",
+            "name": "specs",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "jasmine",
+            "args": [ "${workspaceFolder}/spec/exampleSeleniumSpec.js --filter=\"boa\" S3crurbAnk0FAmeric@OnAraInYdaYinT@mpAB@y" ]
         }
     ]
 }
